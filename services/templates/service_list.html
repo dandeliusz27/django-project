@@ -9,7 +9,7 @@
     <h1>Usługi Lulu</h1>
     <ul>
     {% for service in services %}
-        <img scr="{{ service.photoUrl }}" width="120"/>
+        <img src="{{ service.image_url }}" alt="{{ service.name }}" style="max-width: 200px; max-height: 200px;">
         <li>{{ service.name }}</li>
     {% endfor %}
     </ul>
