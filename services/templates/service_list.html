@@ -1,0 +1,16 @@
+<!-- lulu/templates/lulu/service_list.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Usługi Lulu</title>
+</head>
+<body>
+    <h1>Usługi Lulu</h1>
+    <ul>
+    {% for service in services %}
+        <li>{{ service.name }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
