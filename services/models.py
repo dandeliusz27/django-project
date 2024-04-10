@@ -19,6 +19,8 @@ class Service(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     types = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    price_min = models.IntegerField(null=True)
+    price_max = models.IntegerField(null=True)
 
     def __str__(self):
         return self.category.name

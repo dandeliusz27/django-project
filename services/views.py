@@ -18,13 +18,16 @@ def add_service(request):
         category_id = request.POST['category']  # Poprawione
         type_id = request.POST['types']  # Poprawione
         user_id = request.user.id
+        price_min = request.POST['price_min']
+        price_max = request.POST['price_max']
+        
         
         # Pobierz obiekty kategorii i typu na podstawie ich identyfikatorów
         category = Category.objects.get(id=category_id)
         type = Type.objects.get(id=type_id)
         
         # Utwórz nowy obiekt Service
-        service = Service(category=category, types=type, user_id=user_id)  # Poprawione
+        service = Service(category=category, types=type, user_id=user_id, price_min=price_min, price_max=price_max)  # Poprawione
         service.save()
         return redirect('category_list')  # Poprawiona przekierowanie do odpowiedniego widoku
     else:    
