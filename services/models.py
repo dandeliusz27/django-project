@@ -17,7 +17,7 @@ class Type(models.Model):
 
 class Service(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    types = models.ForeignKey(Type.objects.filter(category = category), on_delete=models.SET_NULL, null=True)
+    types = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.category.name
