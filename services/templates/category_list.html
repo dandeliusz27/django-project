@@ -26,10 +26,13 @@
 </head>
 <body>
     <h1>Usługi Lulu</h1>
+    <a href="add_service/">
+        <button>DODAJ USŁUGĘ!</button>
+    </a>
     <ul class="category-container">
     {% for category in categories %}
-        <li class="category-item">
-            <strong>{{ category.name }}</strong><br>
+        <li  class="category-item">
+            <strong><a href="service/{{category.id}}"> {{ category.name }}</strong><br>
             <img src="{{ category.image_url }}" alt="{{ category.name }}">
         </li>
     {% endfor %}

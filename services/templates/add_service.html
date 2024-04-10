@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Usługi Lulu</title>
+</head>
+<body>
+    <h1>Usługi Lulu</h1>
+    <form action="{% url 'add_service' %}" method="post">
+    {% csrf_token %}    
+        <select id="category" name="category">  <!-- Poprawione -->
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %} 
+        </select>
+        <select id="types" name="types">  <!-- Poprawione -->
+            {% for type in types %}
+            <option value="{{type.id}}">{{type.name}}</option>
+            {% endfor %} 
+        </select>
+        <button type="submit">Dodaj Usługę</button>
+    </form>
+</body>
+</html>
