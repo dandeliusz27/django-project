@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Usługi Lulu</title>
+</head>
+<body>
+    <h1>Usługi Lulu</h1>
+    <ul>
+    {% for category in categories %}
+        <img src="{{ category.image_url }}" alt="{{ category.name }}" style="max-width: 200px; max-height: 200px;">
+        <li>{{ category.name }}</li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
