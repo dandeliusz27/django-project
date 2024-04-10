@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Usługi Lulu</title>
+    {% comment %} <style>
+        .category-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            list-style-type: none;
+            padding: 0;
+        }
+        .category-item {
+            flex-basis: calc(33.33% - 20px);
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .category-item img {
+            max-width: 100%;
+            max-height: 100px;
+            margin-bottom: 10px;
+        }
+    </style> {% endcomment %}
+</head>
+<body>
+    <h1>Usługi Lulu</h1>
+    <ul class="sevice-container">
+    {% for service in services %}
+        <li class="service-item">
+            <h1>{{ service.category.name }}</h1>
+        </li>
+        <li>
+            <h2>{{service.types.name}}</h2>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
