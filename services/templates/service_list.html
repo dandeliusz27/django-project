@@ -1,0 +1,40 @@
+<!-- lulu/templates/lulu/service_list.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Usługi Lulu</title>
+    <style>
+        .services-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            list-style-type: none;
+            padding: 0;
+        }
+        .service-item {
+            flex-basis: calc(33.33% - 20px);
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .service-item img {
+            max-width: 100%;
+            max-height: 100px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Usługi Lulu</h1>
+    <ul class="services-container">
+    {% for service in services %}
+        <li class="service-item">
+        <strong>{{ service.name }}</strong><br>
+        <img src="{{ service.image_url }}" alt="{{ service.name }}">
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
