@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 
 
@@ -34,3 +34,8 @@ def add_service(request):
         categories = Category.objects.all()
         types = Type.objects.all()
         return render(request, 'add_service.html', {'categories': categories, 'types': types})
+    
+
+def get_types(request ,category_id):
+    types = Type.objects.filter(category_id=category_id).values('id', 'name')
+    return JsonResponse({'types': list(types)})

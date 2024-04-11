@@ -1,25 +1,47 @@
+<!-- add_service.html -->
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usługi Lulu</title>
 </head>
 <body>
     <h1>Usługi Lulu</h1>
-    <form action="{% url 'add_service' %}" method="post">
+    <form id="serviceForm" action="{% url 'add_service' %}" method="post">
     {% csrf_token %}    
-        <select id="category" name="category">  <!-- Poprawione -->
+        <select id="category" name="category">
             {% for category in categories %}
-            <option value="{{category.id}}">{{category.name}}</option>
+                <option value="{{ category.id }}">{{ category.name }}</option>
             {% endfor %} 
         </select>
-        <select id="types" name="types">  <!-- Poprawione -->
-            {% for type in types %}
-            <option value="{{type.id}}">{{type.name}}</option>
-            {% endfor %} 
+        <select id="types" name="types">
+            <!-- Opcje typów będą dynamicznie dodawane tutaj za pomocą JavaScript -->
         </select>
         <input type="number" name="price_min" id="price_min"/>
         <input type="number" name="price_max" id="price_max"/>
         <button type="submit">Dodaj Usługę</button>
     </form>
+
+    <script>
+        var categorySelect = document.getElementById('category');
+        var typesSelect = document.getElementById('types');
+
+        categorySelect.addEventListener('change', function() {
+            var categoryId = categorySelect.value;
+            fetch('/get_types/' + categoryId + '/')
+            .then(response => response.json())
+            .then(data => {
+                typesSelect.innerHTML = '';  // Wyczyść obecne opcje typów
+                data.types.forEach(function(type) {
+                    var option = document.createElement('option');
+                    option.value = type.id;
+                    option.textContent = type.name;
+                    typesSelect.appendChild(option);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
