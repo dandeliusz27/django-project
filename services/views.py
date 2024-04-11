@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 
 from .models import Category, Type, Service
@@ -39,3 +40,21 @@ def add_service(request):
 def get_types(request ,category_id):
     types = Type.objects.filter(category_id=category_id).values('id', 'name')
     return JsonResponse({'types': list(types)})
+
+def login_page(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        try:
+            user = User.objects.get(username = username)
+        except:
+            return
+        
+        user = authenticate(request, username = username, password = password)
+
+        if user is not None:
+            login(request, user)
+            return redirect("category_list")
+    
+    return render(request, "login_register.html")
