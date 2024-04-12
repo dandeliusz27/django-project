@@ -1,17 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lulu</title>
-</head>
-<body>
-    <h1>Lulu</h1>
-    <a href="add_service/">
-        <button>DODAJ USŁUGĘ!</button>
-    </a>
+{% extends "main.html" %}
+
+{% block content%}
+
     <ul class="sevice-container">
     {% for service in services %}
         <li class="service-item">
-            <h1>{{ service.user.username }}</h1>
+            <a href="/profile/{{service.user.id}}">{{ service.user.username }}</a>
         </li>
         <li>
             <h2>{{service.types.name}}</h2>
@@ -24,5 +18,5 @@
         </li>
     {% endfor %}
     </ul>
-</body>
-</html>
+
+{% endblock content%}

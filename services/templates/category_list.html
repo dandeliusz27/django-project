@@ -1,41 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Usługi Lulu</title>
-    <style>
-        .category-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            list-style-type: none;
-            padding: 0;
-        }
-        .category-item {
-            flex-basis: calc(33.33% - 20px);
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-        .category-item img {
-            max-width: 100%;
-            max-height: 100px;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Usługi Lulu</h1>
-    <a href="add_service/">
-        <button>DODAJ USŁUGĘ!</button>
-    </a>
-    <ul class="category-container">
-    {% for category in categories %}
-        <li  class="category-item">
-            <strong><a href="service/{{category.id}}"> {{ category.name }}</strong><br>
-            <img src="{{ category.image_url }}" alt="{{ category.name }}">
-        </li>
-    {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "main.html" %}
+
+{% block content%}
+
+    <div class="category-container">
+        {% for category in categories %}
+        <a href="service/{{category.id}}" class="category-link">
+            <div class="category-item">
+                <div>
+                    <img src="{{ category.image_url }}" alt="{{ category.name }}">    
+                </div> 
+                <div>
+                    <p> {{ category.name }}</p>   
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+{% endblock content%}

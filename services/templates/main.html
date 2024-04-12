@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>lulu</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        .category-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; 
+            list-style-type: none;
+            padding: 0;
+        }
+        .category-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            {% comment %} border: 1px solid #ccc; {% endcomment %}
+            text-align: center;
+        }
+        .category-item img {
+            {% comment %} max-width: 100%; {% endcomment %}
+            {% comment %} max-height: 50px; {% endcomment %}
+            margin-bottom: 10px;
+            width:  200px;
+            height: 200px;
+            object-fit: cover;
+        } 
+
+        .category-link {
+            text-decoration: none;
+            color: black;
+        }
+
+        .topnav {
+            {% comment %} width: 100vw; {% endcomment %}
+            padding: 0 20px 0  20px;
+            display: flex;
+            flex-direction: row;
+            height: 60px;
+            {% comment %} background-color: yellow; {% endcomment %}
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo-container {
+
+        }
+        .nav-logo {
+            text-decoration: none;
+            color: black;
+            font-size: 24px;
+        }
+        .nav-account-container {
+
+        }
+        .nav-account-button {
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+
+    {% block content %}
+
+    {% endblock content%}
+
+</body>
+</html>

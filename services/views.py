@@ -2,18 +2,22 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 
 from .models import Category, Type, Service
 
+@login_required(login_url="/login")
 def category_list(request):
     categories = Category.objects.all()
     return render(request, 'category_list.html', {'categories': categories})
 
-def service_list(request, cat):
-    services = Service.objects.filter(category=cat)
+@login_required(login_url="/login")
+def service_list(request, id):
+    services = Service.objects.filter(category=id)
     return render(request, 'service_list.html', {'services': services})
 
+@login_required(login_url="/login")
 def add_service(request):
     if request.method == "POST":
         category_id = request.POST['category']  # Poprawione
@@ -58,3 +62,15 @@ def login_page(request):
             return redirect("category_list")
     
     return render(request, "login_register.html")
+
+@login_required(login_url="/login")
+def get_my_profile(request):
+    user = User.objects.get(id=request.user.id)
+    services = Service.objects.filter(user = request.user.id)
+    return render(request, 'profile.html', {'user': user, "services": services})
+
+@login_required(login_url="/login")
+def get_profile(request, id):
+    user = User.objects.get(id=id)
+    services = Service.objects.filter(user = id)
+    return render(request, 'profile.html', {'user': user, "services": services})
