@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
 
-from .models import Category, Type, Service
+from .models import Category, Type, Service, User
 
 @login_required(login_url="/login")
 def category_list(request):
@@ -47,15 +46,15 @@ def get_types(request ,category_id):
 
 def login_page(request):
     if request.method == "POST":
-        username = request.POST.get("username")
+        email = request.POST.get("email")
         password = request.POST.get("password")
 
         try:
-            user = User.objects.get(username = username)
+            user = User.objects.get(email = email)
         except:
             return
         
-        user = authenticate(request, username = username, password = password)
+        user = authenticate(request, email = email, password = password)
 
         if user is not None:
             login(request, user)
