@@ -1,9 +1,12 @@
 {% extends "main.html" %}
 
-{% block content%}
-<div style="">
+{% block content %}
+<div>
     <div style="display: flex; flex-direction: column; align-items: start; background-color: #dcdcde; max-width: 380px; margin: auto; padding: 50px 20px 50px 20px">
-        <div style=" font-size: 20px">{{user.username}}</div>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-self: stretch">
+            <div style=" font-size: 20px">{{user.username}}</div>
+            <a href="/logout">wyloguj</a>
+        </div>
         <div style="margin-bottom: 10px; margin-top: 50px;">Usługi:</div>
         <div>
             {% for service in services %}

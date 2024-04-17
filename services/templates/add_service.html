@@ -28,7 +28,14 @@
         var categorySelect = document.getElementById('category');
         var typesSelect = document.getElementById('types');
 
+        setParameters();
+
         categorySelect.addEventListener('change', function() {
+           setParameters();
+        });
+
+
+        function setParameters () {
             var categoryId = categorySelect.value;
             fetch('/get_types/' + categoryId + '/')
             .then(response => response.json())
@@ -41,7 +48,7 @@
                     typesSelect.appendChild(option);
                 });
             });
-        });
+        }
     </script>
 </body>
 </html>

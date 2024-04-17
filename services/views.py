@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from services.forms import UserForm
@@ -42,9 +42,22 @@ def add_service(request):
         return render(request, 'add_service.html', {'categories': categories, 'types': types})
     
 
-def get_types(request ,category_id):
+def get_types(request, category_id):
     types = Type.objects.filter(category_id=category_id).values('id', 'name')
     return JsonResponse({'types': list(types)})
+    
+@login_required(login_url="/login")
+def get_my_profile(request):
+    user = User.objects.get(id=request.user.id)
+    services = Service.objects.filter(user = request.user.id)
+    return render(request, 'profile.html', {'user': user, "services": services})
+
+@login_required(login_url="/login")
+def get_profile(request, id):
+    user = User.objects.get(id=id)
+    services = Service.objects.filter(user = id)
+    return render(request, 'profile.html', {'user': user, "services": services})
+
 
 def login_page(request):
     if request.method == "POST":
@@ -64,28 +77,21 @@ def login_page(request):
     
     return render(request, "login.html")
 
+def logoutUser(request):
+    logout(request)
+    return redirect('/login')
+
 def register_page(request):
-    user = request.user
-    form = UserForm(instance = User)
+    form = UserForm()
 
     if request.method == "POST":
-        form = UserForm(request.POST, instance=user)
+        form = UserForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.save()
+            
+            login(request, user)
+
             return redirect("category_list")
 
-        return render(request, 'register.html', {'form': form})
-    
-    return render(request, "register.html")
-
-@login_required(login_url="/login")
-def get_my_profile(request):
-    user = User.objects.get(id=request.user.id)
-    services = Service.objects.filter(user = request.user.id)
-    return render(request, 'profile.html', {'user': user, "services": services})
-
-@login_required(login_url="/login")
-def get_profile(request, id):
-    user = User.objects.get(id=id)
-    services = Service.objects.filter(user = id)
-    return render(request, 'profile.html', {'user': user, "services": services})
+    return render(request, 'register.html', {'form': form})
