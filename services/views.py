@@ -3,6 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 
+from services.forms import UserForm
+
 
 from .models import Category, Type, Service, User
 
@@ -60,7 +62,21 @@ def login_page(request):
             login(request, user)
             return redirect("category_list")
     
-    return render(request, "login_register.html")
+    return render(request, "login.html")
+
+def register_page(request):
+    user = request.user
+    form = UserForm(instance = User)
+
+    if request.method == "POST":
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect("category_list")
+
+        return render(request, 'register.html', {'form': form})
+    
+    return render(request, "register.html")
 
 @login_required(login_url="/login")
 def get_my_profile(request):
